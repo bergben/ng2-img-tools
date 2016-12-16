@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { ImgCropService } from './img-crop.service';
 
 @Injectable()
 export class ImgResizeExactService {
-    constructor(private ng2ImgMaxService: Ng2ImgMaxService) { }
+    constructor(private ng2ImgMaxService: Ng2ImgMaxService, private imgCropService: ImgCropService) { }
     public resizeExact(file: File, toWidth: number, toHeight: number): Observable<any> {
         let resizedImageSubject: Subject<any> = new Subject<any>();
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
@@ -48,7 +49,7 @@ export class ImgResizeExactService {
                         let newImgHeight = img.naturalHeight / (img.naturalWidth / toWidth);
                         startY = (newImgHeight - toHeight) / 2;
                     }
-                    this.ng2ImgMaxService.crop([resizeResult], toWidth, toHeight, startX, startY).subscribe((cropResult) => {
+                    this.imgCropService.cropImage(resizeResult, toWidth, toHeight, startX, startY).subscribe((cropResult) => {
                         if (typeof cropResult.name !== 'undefined' && typeof cropResult.size !== 'undefined' && typeof cropResult.type !== 'undefined') {
                             //all good, result is a file
                             resizedImageSubject.next(cropResult);
