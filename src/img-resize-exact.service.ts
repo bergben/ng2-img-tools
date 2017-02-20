@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 import { ImgCropService } from './img-crop.service';
 
 @Injectable()
 export class ImgResizeExactService {
-    constructor(private ng2ImgMaxService: Ng2ImgMaxService, private imgCropService: ImgCropService) { }
+    constructor(@Inject(forwardRef(() => Ng2ImgMaxService)) private ng2ImgMaxService: Ng2ImgMaxService,@Inject(forwardRef(() => ImgCropService)) private imgCropService: ImgCropService) { }
     public resizeExact(file: File, toWidth: number, toHeight: number): Observable<any> {
         let resizedImageSubject: Subject<any> = new Subject<any>();
         if (file.type !== "image/jpeg" && file.type !== "image/png") {

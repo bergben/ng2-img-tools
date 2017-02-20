@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { ImgCropService } from './img-crop.service';
 import { ImgResizeExactService } from './img-resize-exact.service';
@@ -6,7 +6,9 @@ import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Injectable()
 export class Ng2ImgToolsService {
-    constructor(private imgResizeExactService: ImgResizeExactService, private ng2ImgMaxService: Ng2ImgMaxService, private imgCropService: ImgCropService) {
+    constructor(@Inject(forwardRef(() => ImgResizeExactService)) private imgResizeExactService: ImgResizeExactService, 
+               @Inject(forwardRef(() => Ng2ImgMaxService)) private ng2ImgMaxService: Ng2ImgMaxService, 
+               @Inject(forwardRef(() => ImgCropService)) private imgCropService: ImgCropService) {
     }
     public compress(files: File[], maxSizeInMB: number, logExecutionTime: Boolean = false): Observable<any> {
         return this.ng2ImgMaxService.compress(files, maxSizeInMB, logExecutionTime);
