@@ -16,13 +16,29 @@ export class ImgCropService {
             cvs.width=toWidth;
             cvs.height=toHeight;
             ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
+            let imageData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+            let useAlpha = true;
+            if (file.type === "image/jpeg" || (file.type === "image/png" && !this.isImgUsingAlpha(imageData))) {
+                //image without alpha
+                useAlpha = false;
+                ctx = cvs.getContext('2d', { 'alpha': false });
+                ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
+            }
             cvs.toBlob((blob)=>{
                 let newFile = new File([blob], file.name, { type: file.type, lastModified: new Date().getTime() });
                 croppedImageSubject.next(newFile);
                 window.URL.revokeObjectURL(img.src);
-            });
+            }, useAlpha ? "image/png" : "image/jpeg");
         }
         img.src = window.URL.createObjectURL(file);
         return croppedImageSubject.asObservable();
+    }
+    private isImgUsingAlpha(imageData): boolean {
+        for (var i = 0; i < imageData.data.length; i += 4) {
+            if (imageData.data[i + 3] !== 255) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -10,10 +10,10 @@ export class Ng2ImgToolsService {
                @Inject(forwardRef(() => Ng2ImgMaxService)) private ng2ImgMaxService: Ng2ImgMaxService, 
                @Inject(forwardRef(() => ImgCropService)) private imgCropService: ImgCropService) {
     }
-    public compress(files: File[], maxSizeInMB: number, logExecutionTime: Boolean = false): Observable<any> {
-        return this.ng2ImgMaxService.compress(files, maxSizeInMB, logExecutionTime);
+    public compress(files: File[], maxSizeInMB: number, ignoreAlpha: boolean = false, logExecutionTime: boolean = false): Observable<any> {
+        return this.ng2ImgMaxService.compress(files, maxSizeInMB, ignoreAlpha, logExecutionTime);
     }
-    public resize(files: File[], maxWidth: number, maxHeight: number, logExecutionTime: Boolean = false): Observable<any> {
+    public resize(files: File[], maxWidth: number, maxHeight: number, logExecutionTime: boolean = false): Observable<any> {
         return this.ng2ImgMaxService.resize(files, maxWidth, maxHeight, logExecutionTime);
     }
     public crop(files: File[], toWidth: number, toHeight: number, startX: number = 0, startY: number = 0): Observable<any> {
@@ -40,10 +40,10 @@ export class Ng2ImgToolsService {
     public cropImage(file: File, toWidth: number, toHeight: number, startX: number = 0, startY: number = 0): Observable<any> {
         return this.imgCropService.cropImage(file, toWidth, toHeight, startX, startY);
     }
-    public compressImage(file: File, maxSizeInMB: number, logExecutionTime: Boolean = false): Observable<any> {
-        return this.ng2ImgMaxService.compressImage(file, maxSizeInMB, logExecutionTime);
+    public compressImage(file: File, maxSizeInMB: number, ignoreAlpha: boolean = false, logExecutionTime: boolean = false): Observable<any> {
+        return this.ng2ImgMaxService.compressImage(file, maxSizeInMB, ignoreAlpha, logExecutionTime);
     }
-    public resizeImage(file: File, maxWidth: number, maxHeight: number, logExecutionTime: Boolean = false): Observable<any> {
+    public resizeImage(file: File, maxWidth: number, maxHeight: number, logExecutionTime: boolean = false): Observable<any> {
         return this.ng2ImgMaxService.resizeImage(file, maxWidth, maxHeight, logExecutionTime);
     }
 }
