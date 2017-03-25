@@ -1,8 +1,9 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+
 import { ImgCropService } from './img-crop.service';
 import { ImgResizeExactService } from './img-resize-exact.service';
-import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Injectable()
 export class Ng2ImgToolsService {
@@ -21,6 +22,8 @@ export class Ng2ImgToolsService {
         files.forEach((file) => {
             this.cropImage(file, toWidth, toHeight, startX, startY).subscribe((value) => {
                 croppedFileSubject.next(value);
+            }, error => {
+                croppedFileSubject.error(error);
             });
         });
         return croppedFileSubject.asObservable();
@@ -30,6 +33,8 @@ export class Ng2ImgToolsService {
         files.forEach((file) => {
             this.resizeExactImage(file, toWidth, toHeight).subscribe((value) => {
                 resizedFileSubject.next(value);
+            }, error => {
+                resizedFileSubject.error(error);
             });
         });
         return resizedFileSubject.asObservable();
@@ -45,5 +50,8 @@ export class Ng2ImgToolsService {
     }
     public resizeImage(file: File, maxWidth: number, maxHeight: number, logExecutionTime: boolean = false): Observable<any> {
         return this.ng2ImgMaxService.resizeImage(file, maxWidth, maxHeight, logExecutionTime);
+    }
+    public getEXIFOrientedImage(image:HTMLImageElement): Promise<HTMLImageElement> {
+        return this.ng2ImgMaxService.getEXIFOrientedImage(image);
     }
 }

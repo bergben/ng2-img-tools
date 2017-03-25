@@ -1,8 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { Ng2ImgMaxModule, Ng2ImgMaxService } from 'ng2-img-max';
+
 import { ImgCropService } from './img-crop.service';
 import { ImgResizeExactService } from './img-resize-exact.service';
 import { Ng2ImgToolsService } from './ng2-img-tools.service';
-import { Ng2ImgMaxModule, Ng2ImgMaxService } from 'ng2-img-max';
 
 @NgModule({
     imports:[

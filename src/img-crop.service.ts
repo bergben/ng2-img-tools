@@ -1,34 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Injectable()
 export class ImgCropService {
+    constructor(@Inject(forwardRef(() => Ng2ImgMaxService)) private ng2ImgMaxService: Ng2ImgMaxService) { }
     public cropImage(file: File, toWidth: number, toHeight: number, startX: number = 0, startY: number = 0): Observable<any> {
         let croppedImageSubject: Subject<any> = new Subject<any>();
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
-            croppedImageSubject.next({croppedFile:file, reason: "File provided is neither of type jpg nor of type png.", error: "INVALID_EXTENSION"});
-            return;
+            // END OF CROPPING
+            setTimeout(()=>{
+                croppedImageSubject.error({croppedFile:file, reason: "File provided is neither of type jpg nor of type png.", error: "INVALID_EXTENSION"});
+            },0);
+            return croppedImageSubject.asObservable();
         }
         let cvs = document.createElement('canvas');
         let ctx = cvs.getContext('2d');
         let img = new Image();
         img.onload = () => {
-            cvs.width=toWidth;
-            cvs.height=toHeight;
-            ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
-            let imageData = ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
-            let useAlpha = true;
-            if (file.type === "image/jpeg" || (file.type === "image/png" && !this.isImgUsingAlpha(imageData))) {
-                //image without alpha
-                useAlpha = false;
-                ctx = cvs.getContext('2d', { 'alpha': false });
-                ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
-            }
-            cvs.toBlob((blob)=>{
-                let newFile = new File([blob], file.name, { type: file.type, lastModified: new Date().getTime() });
-                croppedImageSubject.next(newFile);
+            this.ng2ImgMaxService.getEXIFOrientedImage(img).then(orientedImg=>{
                 window.URL.revokeObjectURL(img.src);
-            }, useAlpha ? "image/png" : "image/jpeg");
+                cvs.width=toWidth;
+                cvs.height=toHeight;
+                ctx.drawImage(orientedImg, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
+                let imageData = ctx.getImageData(0, 0, orientedImg.width, orientedImg.height);
+                let useAlpha = true;
+                if (file.type === "image/jpeg" || (file.type === "image/png" && !this.isImgUsingAlpha(imageData))) {
+                    //image without alpha
+                    useAlpha = false;
+                    ctx = cvs.getContext('2d', { 'alpha': false });
+                    ctx.drawImage(orientedImg, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
+                }
+                cvs.toBlob((blob)=>{
+                    let newFile = new File([blob], file.name, { type: file.type, lastModified: new Date().getTime() });
+                    // END OF CROPPING
+                    croppedImageSubject.next(newFile);
+                }, useAlpha ? "image/png" : "image/jpeg");
+            });
         }
         img.src = window.URL.createObjectURL(file);
         return croppedImageSubject.asObservable();

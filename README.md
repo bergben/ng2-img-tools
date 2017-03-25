@@ -60,18 +60,15 @@ Possible errors are: <br />
 <b>`FILE_BIGGER_THAN_INITIAL_FILE`</b>: This should actually never happen, just a precaution. The `compressedFile` is the original file.<br />
 <b>`UNABLE_TO_COMPRESS_ENOUGH`</b>: Could not compress image enough to fit the maximal file size limit. The `compressedFile` is a compression as close as it can get.<br />
 
-Example code to show how to see if the result is an object (error happened) or a file:
+Example code catch errors:
 
  ```TypeScript
-this.ng2ImgMaxSerive.resize([someImage], 2000, 1000).subscribe((result)=>{
-        if (typeof result.name !== 'undefined' && typeof result.size !== 'undefined' && typeof result.type !== 'undefined') {
-            //all good, result is a file
-            console.info(result);
-        }
-        else {
-            //something went wrong 
-            //use result.compressedFile or handle specific error cases individually
-        }
+this.ng2ImgMaxSerive.resize([someImage], 2000, 1000).subscribe(result => {
+    //all good, result is a file
+    console.info(result);
+}, error => {
+    //something went wrong 
+    //use result.compressedFile or handle specific error cases individually
 });
 ```
 
@@ -92,6 +89,10 @@ Crops the given files down to the given width and height. startX and startY tell
 #### `public resizeExact(files: File[], toWidth: number, toHeight: number): Observable<any>` 
 Resizes an image exactly down to the given width and height. To do so, the image will first be resized, then cropped based on the center of the image so to keep the most likely most important part of the image. This way the proportions width to height are kept. 
 This proves very useful to create thumbnails.
+
+### Get EXIF oriented image 
+#### `getEXIFOrientedImage(image:HTMLImageElement): Promise<HTMLImageElement>`
+Method that returns an image respecting the EXIF orientation data.
 
 ## Contribute / Limitations
 Contributions to improve this toolkit are most welcome especially to find the best possible alghoritms.
