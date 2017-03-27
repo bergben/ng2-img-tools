@@ -42,8 +42,6 @@ export class ImgResizeExactService {
                 }
 
                 this.ng2ImgMaxService.resize([file], resizeWidth, resizeHeight).subscribe((resizeResult) => {
-                    if (typeof resizeResult.name !== 'undefined' && typeof resizeResult.size !== 'undefined' && typeof resizeResult.type !== 'undefined') {
-                        //all good, result is a file
                         /* one side is already resized exactly to the desired size, now crop the other side */
                         if (resizeWidth === 100000) {
                             /* resized to height -> as we crop to the width, we have to set startX */
@@ -56,20 +54,15 @@ export class ImgResizeExactService {
                             startY = (newImgHeight - toHeight) / 2;
                         }
                         this.imgCropService.cropImage(resizeResult, toWidth, toHeight, startX, startY).subscribe((cropResult) => {
-                            if (typeof cropResult.name !== 'undefined' && typeof cropResult.size !== 'undefined' && typeof cropResult.type !== 'undefined') {
-                                //all good, result is a file
-                                resizedImageSubject.next(cropResult);
-                            }
-                            else {
-                                //something went wrong 
-                                resizedImageSubject.error(cropResult);
-                            }
+                            //all good, result is a file
+                            resizedImageSubject.next(cropResult);
+                        }, error =>{
+                            //something went wrong 
+                            resizedImageSubject.error(error);
                         });
-                    }
-                    else {
-                        //something went wrong 
-                        resizedImageSubject.error(resizeResult);
-                    }
+                }, error =>{
+                    //something went wrong 
+                    resizedImageSubject.error(error);
                 });
             });
         }
