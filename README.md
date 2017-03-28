@@ -30,15 +30,12 @@ export class MyAppModule {}
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 [...]
     constructor(private ng2ImgToolsService: Ng2ImgToolsService) {
-        this.ng2ImgToolsService.resize([someImage], 2000, 1000).subscribe((result)=>{
-             if (typeof result.name !== 'undefined' && typeof result.size !== 'undefined' && typeof result.type !== 'undefined') {
-                 //all good, result is a file
-                  console.info(result);
-             }
-             else {
-                 //something went wrong 
-                  console.error(result);
-             }
+        this.ng2ImgMaxSerive.resize([someImage], 2000, 1000).subscribe(result => {
+            //all good, result is a file
+            console.info(result);
+        }, error => {
+            //something went wrong 
+            //use result.compressedFile or handle specific error cases individually
         });
     }
 }
@@ -59,18 +56,6 @@ Possible errors are: <br />
 <b>`MAX_STEPS_EXCEEDED`</b>: Could not find the correct compression quality in 15 steps - abort. This should rarely to never at all happen. The `compressedFile` is the result of step 15 of the compression.<br />
 <b>`FILE_BIGGER_THAN_INITIAL_FILE`</b>: This should actually never happen, just a precaution. The `compressedFile` is the original file.<br />
 <b>`UNABLE_TO_COMPRESS_ENOUGH`</b>: Could not compress image enough to fit the maximal file size limit. The `compressedFile` is a compression as close as it can get.<br />
-
-Example code catch errors:
-
- ```TypeScript
-this.ng2ImgMaxSerive.resize([someImage], 2000, 1000).subscribe(result => {
-    //all good, result is a file
-    console.info(result);
-}, error => {
-    //something went wrong 
-    //use result.compressedFile or handle specific error cases individually
-});
-```
 
 #### `compress(files: File[], maxSizeInMB: number, ignoreAlpha: boolean = false, logExecutionTime: boolean = false): Observable<any>` 
 Method to compress an image. This reduces the quality of an image down until it fits a certain fileSize which is given as `maxSizeInMB`.
