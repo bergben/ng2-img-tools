@@ -28,10 +28,10 @@ export class Ng2ImgToolsService {
         });
         return croppedFileSubject.asObservable();
     }
-    public resizeExact(files: File[], toWidth: number, toHeight: number): Observable<any> {
+    public resizeExactCrop(files: File[], toWidth: number, toHeight: number): Observable<any> {
         let resizedFileSubject: Subject<any> = new Subject<any>();
         files.forEach((file) => {
-            this.resizeExactImage(file, toWidth, toHeight).subscribe((value) => {
+            this.resizeExactCropImage(file, toWidth, toHeight).subscribe((value) => {
                 resizedFileSubject.next(value);
             }, error => {
                 resizedFileSubject.error(error);
@@ -39,8 +39,22 @@ export class Ng2ImgToolsService {
         });
         return resizedFileSubject.asObservable();
     }
-    public resizeExactImage(file: File, toWidth: number, toHeight: number): Observable<any> {
-        return this.imgResizeExactService.resizeExact(file, toWidth, toHeight);
+    public resizeExactFill(files: File[], toWidth: number, toHeight: number, fillColor?:string): Observable<any> {
+        let resizedFileSubject: Subject<any> = new Subject<any>();
+        files.forEach((file) => {
+            this.resizeExactFillImage(file, toWidth, toHeight, fillColor).subscribe((value) => {
+                resizedFileSubject.next(value);
+            }, error => {
+                resizedFileSubject.error(error);
+            });
+        });
+        return resizedFileSubject.asObservable();
+    }
+    public resizeExactFillImage(file: File, toWidth: number, toHeight: number, fillColor?:string): Observable<any> {
+        return this.imgResizeExactService.resizeExactFill(file, toWidth, toHeight);
+    }
+    public resizeExactCropImage(file: File, toWidth: number, toHeight: number): Observable<any> {
+        return this.imgResizeExactService.resizeExactCrop(file, toWidth, toHeight);
     }
     public cropImage(file: File, toWidth: number, toHeight: number, startX: number = 0, startY: number = 0): Observable<any> {
         return this.imgCropService.cropImage(file, toWidth, toHeight, startX, startY);

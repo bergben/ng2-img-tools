@@ -86,9 +86,11 @@ Method to resize files if necessary down to a certain maximal width or maximal h
 Crops the given files down to the given width and height. startX and startY tell where the cropping should start as coordinates.
 
 ### Resize exact (e.g. useful to create thumbnails)
-#### `public resizeExact(files: File[], toWidth: number, toHeight: number): Observable<any>` 
-Resizes an image exactly down to the given width and height. To do so, the image will first be resized, then cropped based on the center of the image so to keep the most likely most important part of the image. This way the proportions width to height are kept. 
-This proves very useful to create thumbnails.
+#### `public resizeExactCrop(files: File[], toWidth: number, toHeight: number): Observable<any>` 
+Resizes an image exactly down to the given width and height. To do so, the image will first be resized, then cropped based on the center of the image so to keep the most likely most important part of the image. The proportions width to height are kept. 
+
+#### `public resizeExactFill(files: File[], toWidth: number, toHeight: number, fillColor?: string): Observable<any>` 
+Resizes an image exactly down to the given width and height. To do so, the image will first be resized, then the rest of the width / height will be filled with the `fillColor`. The image will be positioned to the center of the image. The proportions width to height are kept. 
 
 ### Get EXIF oriented image 
 #### `getEXIFOrientedImage(image:HTMLImageElement): Promise<HTMLImageElement>`
