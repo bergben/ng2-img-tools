@@ -1,6 +1,6 @@
 {
   "name": "ng2-img-tools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Angular 2 toolkit to crop, resize or compress images in the browser.",
   "repository": {
     "type": "git",

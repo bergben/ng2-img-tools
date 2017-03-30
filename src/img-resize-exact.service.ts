@@ -67,7 +67,7 @@ export class ImgResizeExactService {
                                 ctx.fillRect(0, 0, toWidth, toHeight);
                             }
                             ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
-                            let imageData = ctx.getImageData(0, 0, orientedImg.width, orientedImg.height);
+                            let imageData = ctx.getImageData(0, 0, toWidth, toHeight);
                             let useAlpha = true;
                             if (file.type === "image/jpeg" || (file.type === "image/png" && !this.isImgUsingAlpha(imageData))) {
                                 //image without alpha

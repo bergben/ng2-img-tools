@@ -51,7 +51,7 @@ export class Ng2ImgToolsService {
         return resizedFileSubject.asObservable();
     }
     public resizeExactFillImage(file: File, toWidth: number, toHeight: number, fillColor?:string): Observable<any> {
-        return this.imgResizeExactService.resizeExactFill(file, toWidth, toHeight);
+        return this.imgResizeExactService.resizeExactFill(file, toWidth, toHeight, fillColor);
     }
     public resizeExactCropImage(file: File, toWidth: number, toHeight: number): Observable<any> {
         return this.imgResizeExactService.resizeExactCrop(file, toWidth, toHeight);
