@@ -73,6 +73,10 @@ export class ImgResizeExactService {
                                 //image without alpha
                                 useAlpha = false;
                                 ctx = cvs.getContext('2d', { 'alpha': false });
+                                if(fillColor){
+                                    ctx.fillStyle = fillColor;
+                                    ctx.fillRect(0, 0, toWidth, toHeight);
+                                }
                                 ctx.drawImage(img, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
                             }
                             cvs.toBlob((blob)=>{
