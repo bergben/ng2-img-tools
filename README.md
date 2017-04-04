@@ -30,7 +30,7 @@ export class MyAppModule {}
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 [...]
     constructor(private ng2ImgToolsService: Ng2ImgToolsService) {
-        this.ng2ImgMaxSerive.resize([someImage], 2000, 1000).subscribe(result => {
+        this.ng2ImgToolsService.resize([someImage], 2000, 1000).subscribe(result => {
             //all good, result is a file
             console.info(result);
         }, error => {
