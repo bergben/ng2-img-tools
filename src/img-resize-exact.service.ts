@@ -81,7 +81,7 @@ export class ImgResizeExactService {
                             }
                             cvs.toBlob((blob)=>{
                                 window.URL.revokeObjectURL(img.src);
-                                let newFile = new File([blob], file.name, { type: file.type, lastModified: new Date().getTime() });
+                                let newFile:File = this.generateResultFile(blob, file.name, file.type, new Date().getTime());
                                 // END OF CROPPING
                                 resizedImageSubject.next(newFile);
                             }, useAlpha ? "image/png" : "image/jpeg");
@@ -164,5 +164,17 @@ export class ImgResizeExactService {
             }
         }
         return false;
+    }
+    private generateResultFile(blob:Blob, name:string, type: string, lastModified: number):File{
+        let resultFile=new Blob([blob], {type: type});
+        return this.blobToFile(resultFile, name, lastModified);
+    }
+    private blobToFile(blob: Blob, name:string, lastModified: number): File {
+        let file: any = blob;
+        file.name = name;
+        file.lastModified = lastModified;
+
+        //Cast to a File() type
+        return <File> file;
     }
 }

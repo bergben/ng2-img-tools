@@ -32,7 +32,7 @@ export class ImgCropService {
                     ctx.drawImage(orientedImg, startX, startY, toWidth, toHeight, 0, 0, toWidth, toHeight);
                 }
                 cvs.toBlob((blob)=>{
-                    let newFile = new File([blob], file.name, { type: file.type, lastModified: new Date().getTime() });
+                    let newFile:File = this.generateResultFile(blob, file.name, file.type, new Date().getTime());
                     // END OF CROPPING
                     croppedImageSubject.next(newFile);
                 }, useAlpha ? "image/png" : "image/jpeg");
@@ -48,5 +48,17 @@ export class ImgCropService {
             }
         }
         return false;
+    }
+    private generateResultFile(blob:Blob, name:string, type: string, lastModified: number):File{
+        let resultFile=new Blob([blob], {type: type});
+        return this.blobToFile(resultFile, name, lastModified);
+    }
+    private blobToFile(blob: Blob, name:string, lastModified: number): File {
+        let file: any = blob;
+        file.name = name;
+        file.lastModified = lastModified;
+
+        //Cast to a File() type
+        return <File> file;
     }
 }
