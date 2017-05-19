@@ -1,7 +1,19 @@
 [![Join the chat at https://gitter.im/bergben/bergben](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bergben/bergben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # ng2-img-tools
-Angular 2 module to resize images, crop images or compress images down to a certain filesize. This is all done in the browser, using Web Workers when possible.
+Angular 2 / 4 module to resize images, crop images or compress images down to a certain filesize. This is all done in the browser, using Web Workers when possible.
+
+## Demo
+A simple demo is available as a plnkr: http://plnkr.co/edit/HRi5rQEDCBZb59a0lcPe 
+
+## Browser support
+This module is supported by all major browsers recent versions (IE 10+). 
+
+Make sure to include the following polyfill for `HtmlCanvasElement.toBlob()`: https://www.npmjs.com/package/blueimp-canvas-to-blob
+
+```bash
+$ npm install blueimp-canvas-to-blob --save
+```
 
 ## Install
 ```bash
@@ -84,6 +96,3 @@ Method that returns an image respecting the EXIF orientation data.
 ## Contribute / Limitations
 Contributions to improve this toolkit are most welcome especially to find the best possible alghoritms.
 Please check out <a href="https://github.com/bergben/ng2-img-max">ng2-img-max</a> to read about the limitations and the current algorithm regarding maximal filesize.
-
-## To-do
- - Provide a demo
