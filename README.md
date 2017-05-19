@@ -4,7 +4,7 @@
 Angular 2 / 4 module to resize images, crop images or compress images down to a certain filesize. This is all done in the browser, using Web Workers when possible.
 
 ## Demo
-A simple demo is available as a plnkr: http://plnkr.co/edit/HRi5rQEDCBZb59a0lcPe 
+A simple demo is available as a plnkr: http://plnkr.co/edit/HRi5rQEDCBZb59a0lcPe?p=preview
 
 ## Browser support
 This module is supported by all major browsers recent versions (IE 10+). 
