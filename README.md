@@ -7,7 +7,8 @@ Angular 2 / 4 module to resize images, crop images or compress images down to a 
 A simple demo is available as a plnkr: http://plnkr.co/edit/HRi5rQEDCBZb59a0lcPe?p=preview
 
 ## Browser support
-This module is supported by all major browsers recent versions (IE 10+). 
+This module is supported by all major browsers recent versions (IE 10+) except for Safari. 
+Safari does not support `HTMLCanvasElement.toBlob()` and there seems to be a problem with zone.js and the available polyfills. Pull requests to solve this problem are welcome.
 
 Make sure to include the following polyfill for `HtmlCanvasElement.toBlob()`: https://www.npmjs.com/package/blueimp-canvas-to-blob
 
