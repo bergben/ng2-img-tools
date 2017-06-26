@@ -1,7 +1,7 @@
 [![Join the chat at https://gitter.im/bergben/bergben](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bergben/bergben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # ng2-img-tools
-Angular 2 / 4 module to resize images, crop images or compress images down to a certain filesize. This is all done in the browser, using Web Workers when possible.
+Angular 2 and beyond module to resize images, crop images or compress images down to a certain filesize. This is all done in the browser, using Web Workers when possible.
 
 ## Demo
 A simple demo is available as a plnkr: http://plnkr.co/edit/HRi5rQEDCBZb59a0lcPe?p=preview
