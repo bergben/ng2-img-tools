@@ -1,5 +1,6 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Injectable()
