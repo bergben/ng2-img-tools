@@ -1,6 +1,6 @@
 [![Join the chat at https://gitter.im/bergben/bergben](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bergben/bergben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# Not actively maintained anymore
+# Not actively maintained anymore, looking for maintainer
 Unfortunately I don't have time to actively maintain my open source repos anymore. If anyone wants to take over, feel free to contact me anytime, I'd be happy if this project still finds use. 
 
 # ng2-img-tools
