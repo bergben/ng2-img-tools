@@ -1,10 +1,9 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 
 import { ImgCropService } from './img-crop.service';
 import { ImgResizeExactService } from './img-resize-exact.service';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class Ng2ImgToolsService {

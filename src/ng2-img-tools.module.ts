@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Ng2ImgMaxModule, Ng2ImgMaxService } from 'ng2-img-max';
 
 import { ImgCropService } from './img-crop.service';
